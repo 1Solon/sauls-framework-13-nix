@@ -58,7 +58,7 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      update = "sudo nixos-rebuild switch --impure --flake /home/saul/sauls-framework-13-nixos/flake.nix";
+      update = "sudo nixos-rebuild switch --impure --flake /home/saul/sauls-framework-13-nixos#saul";
       config = "code /home/saul/sauls-framework-13-nixos";
     };
   };
