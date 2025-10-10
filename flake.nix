@@ -1,22 +1,29 @@
 {
-    description = "My Home Manager Flake";
+  description = "NixOS configuration";
 
-    inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-        home-manager = {
-            url = "github:nix-community/home-manager";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+  };
 
-    outputs = {nixpkgs, home-manager, ...}: {
-        homeConfigurations = {
-            "saul" = home-manager.lib.homeManagerConfiguration {
-                # System is very important!
-                pkgs = import nixpkgs { system = "x86_64-linux"; };
+  outputs = inputs@{ nixpkgs, home-manager, ... }: {
+    nixosConfigurations = {
+      sauls-laptop = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./configuration.nix
 
-                modules = [ ./home.nix ]; # Defined later
-            };
-        };
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.saul = import ./home.nix;
+          }
+        ];
+      };
     };
+  };
 }

@@ -1,4 +1,4 @@
-{ pkgs, ...}:
+{ config, pkgs, ...}:
 
 { 
   home.username = "saul";
@@ -6,30 +6,29 @@
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 
-   home.packages = [
-    pkgs.vscode
-    pkgs.git
-    pkgs.gh
-    pkgs._1password
-    pkgs._1password-gui
-    pkgs._1password-cli
-    pkgs.k9s
-    pkgs.kubectl
-    pkgs.talosctl
-    pkgs.sops
-    pkgs.zsh
-    pkgs.starship
-    pkgs.zsh-autocomplete
-    pkgs.xdg-utils
-    pkgs.docker
-    pkgs.docker-compose
-    pkgs.go-task
-    pkgs.gnumake
-    pkgs.go
-    pkgs.cue
-    pkgs.python3
+   home.packages = with pkgs; [
+    vscode
+    git
+    gh
+    _1password-gui
+    _1password-cli
+    k9s
+    kubectl
+    talosctl
+    sops
+    zsh
+    starship
+    zsh-autocomplete
+    xdg-utils
+    docker
+    docker-compose
+    go-task
+    gnumake
+    go
+    cue
+    python3
   ];
-
+  
   # Git configuration
   programs.git = {
     enable = true;
@@ -58,7 +57,7 @@
     syntaxHighlighting.enable = true;
 
     shellAliases = {
-      update = "sudo nixos-rebuild switch --impure --flake /home/saul/sauls-framework-13-nixos#saul";
+      update = "nix flake update /home/saul/sauls-framework-13-nixos && sudo nixos-rebuild switch --impure --flake /home/saul/sauls-framework-13-nixos#sauls-laptop";
       config = "code /home/saul/sauls-framework-13-nixos";
     };
   };
