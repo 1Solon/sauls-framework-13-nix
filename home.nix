@@ -1,10 +1,14 @@
-{ config, pkgs, ...}:
+{ config, pkgs, inputs, ...}:
 
 { 
   home.username = "saul";
   home.homeDirectory = "/home/saul";
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
+
+  imports = [
+    inputs.zen-browser.homeModules.twilight
+  ];
 
    home.packages = with pkgs; [
     vscode
@@ -28,6 +32,9 @@
     cue
     python3
   ];
+
+  # zen
+  programs.zen-browser.enable = true;
   
   # Git configuration
   programs.git = {
