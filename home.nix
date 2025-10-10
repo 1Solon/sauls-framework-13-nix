@@ -48,6 +48,7 @@
 
     # System utilities
     xdg-utils
+    logiops
 
     # Communication
     discord-ptb
