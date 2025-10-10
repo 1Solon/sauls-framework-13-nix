@@ -8,7 +8,7 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -24,6 +24,7 @@
   # Enable networking
   networking.networkmanager.enable = true;
   networking.hostName = "sauls-laptop";
+  networking.hosts = { "192.168.1.111" = [ "TrueNAS" ]; }; 
 
   # Set your time zone.
   time.timeZone = "Europe/Dublin";
@@ -83,7 +84,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-
   # Home Manager
   home-manager.useUserPackages = true;
   home-manager.useGlobalPkgs = true;
@@ -96,6 +96,7 @@
   # Global packages, used by all users
   environment.systemPackages = with pkgs; [
     git
+    nfs-utils
     vscode
   ];
 
@@ -110,6 +111,12 @@
     };
   };
 
-  system.stateVersion = "25.05";
+  # Mount NFS shares from TrueNAS
+  fileSystems."/home/saul/nfs" = { 
+    device = "192.168.1.111:/mnt/STORAGE-01/Media-Storage"; 
+    fsType = "nfs"; 
+    options = [ "x-systemd.automount" "noauto" ]; 
+  };
 
+  system.stateVersion = "25.05";
 }
