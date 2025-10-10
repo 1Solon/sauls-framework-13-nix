@@ -1,17 +1,9 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
     ];
-
-  home-manager.useUserPackages = true;
-  home-manager.useGlobalPkgs = true;
-  home-manager.backupFileExtension = "backup";
-
-  # Enable zsh
-  programs.zsh.enable = true;
-  users.defaultUserShell = pkgs.zsh;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -19,6 +11,12 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Enable BIOS updates
+  services.fwupd.enable = true; 
+
+  # Enable fingerprint reader
+  services.fprintd.enable = true;
 
   # Enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -82,17 +80,35 @@
     packages = with pkgs; [ ];
   };
 
-  # Install firefox.
-  programs.firefox.enable = true;
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+
+  # Home Manager
+  home-manager.useUserPackages = true;
+  home-manager.useGlobalPkgs = true;
+  home-manager.backupFileExtension = "backup";
+
+  # Enable zsh
+  programs.zsh.enable = true;
+  users.defaultUserShell = pkgs.zsh;
 
   # Global packages, used by all users
   environment.systemPackages = with pkgs; [
     git
     vscode
   ];
+
+  # Zen / 1Password stuff
+  # 1Password configuration for Zen Browser
+  environment.etc = {
+    "1password/custom_allowed_browsers" = {
+      text = ''
+        .zen-wrapped
+      ''; # or just "zen" if you use unwrapped package
+      mode = "0755";
+    };
+  };
 
   system.stateVersion = "25.05";
 

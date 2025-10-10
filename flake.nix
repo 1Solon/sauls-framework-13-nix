@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -14,11 +15,14 @@
     
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, zen-browser, ... }: {
+  outputs = inputs@{ nixpkgs, home-manager, zen-browser, nixos-hardware, ... }: {
     nixosConfigurations = {
       sauls-laptop = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
         modules = [
           ./configuration.nix
+
+          nixos-hardware.nixosModules.framework-amd-ai-300-series
 
           home-manager.nixosModules.home-manager
           {

@@ -11,30 +11,71 @@
   ];
 
    home.packages = with pkgs; [
+    # Editors
     vscode
+
+    # Version control
     git
     gh
-    _1password-gui
+
+    # Security & secrets
     _1password-cli
+    _1password-gui
+    sops
+
+    # Kubernetes & cluster tooling
     k9s
     kubectl
     talosctl
-    sops
-    zsh
-    starship
-    zsh-autocomplete
-    xdg-utils
+
+    # Containers
     docker
     docker-compose
+
+    # Shell & prompt
+    zsh
+    zsh-autocomplete
+    starship
+
+    # Languages & toolchains
+    cue
+    go
+    python3
+
+    # Build & task runners
     go-task
     gnumake
-    go
-    cue
-    python3
+
+    # System utilities
+    xdg-utils
+
+    # Communication
+    discord-ptb
   ];
 
-  # zen
+  # Enable Zen Browser
   programs.zen-browser.enable = true;
+
+  # TODO: Figure out extensions
+  # Zen Preferences
+  programs.zen-browser.policies = {
+    AutofillAddressEnabled = true;
+    AutofillCreditCardEnabled = false;
+    DisableAppUpdate = true;
+    DisableFeedbackCommands = true;
+    DisableFirefoxStudies = true;
+    DisablePocket = true;
+    DisableTelemetry = true;
+    DontCheckDefaultBrowser = true;
+    NoDefaultBookmarks = true;
+    OfferToSaveLogins = false;
+    EnableTrackingProtection = {
+      Value = true;
+      Locked = true;
+      Cryptomining = true;
+      Fingerprinting = true;
+    };
+  };
   
   # Git configuration
   programs.git = {
