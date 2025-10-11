@@ -14,6 +14,7 @@
   imports = [
     ./programs/zen.nix
     ./programs/git.nix
+    ./programs/github-cli.nix
     inputs.zen-browser.homeModules.beta
   ];
 
@@ -59,14 +60,6 @@
     # Communication
     discord-ptb
   ];
-
-  # Add GitHub CLI configuration
-  programs.gh = {
-    enable = true;
-    settings = {
-      git_protocol = "https";
-    };
-  };
 
   # Zsh configuration
   programs.zsh = {
