@@ -59,30 +59,6 @@
     discord-ptb
   ];
 
-  # Enable Zen Browser
-  programs.zen-browser.enable = true;
-
-  # TODO: Figure out extensions
-  # Zen Preferences
-  programs.zen-browser.policies = {
-    AutofillAddressEnabled = true;
-    AutofillCreditCardEnabled = false;
-    DisableAppUpdate = true;
-    DisableFeedbackCommands = true;
-    DisableFirefoxStudies = true;
-    DisablePocket = true;
-    DisableTelemetry = true;
-    DontCheckDefaultBrowser = true;
-    NoDefaultBookmarks = true;
-    OfferToSaveLogins = false;
-    EnableTrackingProtection = {
-      Value = true;
-      Locked = true;
-      Cryptomining = true;
-      Fingerprinting = true;
-    };
-  };
-
   # Git configuration
   programs.git = {
     enable = true;
