@@ -16,6 +16,7 @@
     ./programs/git.nix
     ./programs/github-cli.nix
     ./programs/zsh.nix
+    ./programs/starship.nix
     inputs.zen-browser.homeModules.beta
   ];
 
@@ -61,10 +62,4 @@
     # Communication
     discord-ptb
   ];
-
-  # Starship prompt configuration
-  programs.starship = {
-    enable = true;
-    settings = { };
-  };
 }
