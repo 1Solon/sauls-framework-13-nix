@@ -10,8 +10,8 @@ _My NixOS setup for Framework 13 (AMD Ryzen AI 300) with Home Manager and Flakes
 
 <div align="center">
 
-![GitHub Repo stars](https://img.shields.io/github/stars/1Solon/sauls-framework-13-nixos?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/1Solon/sauls-framework-13-nixos?style=for-the-badge)
+![GitHub Repo stars](https://img.shields.io/github/stars/1Solon/sauls-framework-13-nix?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/1Solon/sauls-framework-13-nix?style=for-the-badge)
 
 </div>
 
