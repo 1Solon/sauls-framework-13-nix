@@ -2,7 +2,7 @@
 
 <img src="https://raw.githubusercontent.com/homarr-labs/dashboard-icons/150279bb788cf84fc94a8b79cfcd47857cac50e2/svg/nixos.svg" align="center" width="144px" height="144px"/>
 
-## Solon's Framework 13 NixOS
+## Solon's Framework 13 Nix Configuration
 
 _My NixOS setup for Framework 13 (AMD Ryzen AI 300) with Home Manager and Flakes_
 
