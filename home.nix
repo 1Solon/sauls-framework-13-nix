@@ -7,7 +7,7 @@
   programs.home-manager.enable = true;
 
   imports = [
-    inputs.zen-browser.homeModules.twilight
+    inputs.zen-browser.homeModules.beta
   ];
 
    home.packages = with pkgs; [
