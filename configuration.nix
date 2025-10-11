@@ -1,4 +1,5 @@
 { config, pkgs, inputs, ... }:
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -130,6 +131,10 @@
     enable = true;
     polkitPolicyOwners = [ "saul" ];
   };
+
+  # Enable logitech 
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true;
 
   system.stateVersion = "25.05";
 }
