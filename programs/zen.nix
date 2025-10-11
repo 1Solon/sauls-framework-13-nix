@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   # Enable Zen Browser
   programs.zen-browser.enable = true;
 
