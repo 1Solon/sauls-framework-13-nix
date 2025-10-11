@@ -13,6 +13,7 @@
 
   imports = [
     ./programs/zen.nix
+    ./programs/git.nix
     inputs.zen-browser.homeModules.beta
   ];
 
@@ -58,18 +59,6 @@
     # Communication
     discord-ptb
   ];
-
-  # Git configuration
-  programs.git = {
-    enable = true;
-    userName = "1Solon";
-    userEmail = "Solonerus@gmail.com";
-    extraConfig = {
-      "protocol.https".allow = "always";
-      "push".autoSetupRemote = true;
-      "init".defaultBranch = "main";
-    };
-  };
 
   # Add GitHub CLI configuration
   programs.gh = {
