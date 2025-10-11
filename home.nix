@@ -14,6 +14,7 @@
     # Editors
     vscode
 
+
     # Version control
     git
     gh
@@ -43,6 +44,7 @@
     # Build & task runners
     go-task
     gnumake
+    nixfmt-rfc-style
 
     # System utilities
     xdg-utils
