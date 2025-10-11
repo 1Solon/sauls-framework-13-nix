@@ -12,6 +12,7 @@
   programs.home-manager.enable = true;
 
   imports = [
+    ./programs/zen.nix
     inputs.zen-browser.homeModules.beta
   ];
 
