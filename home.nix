@@ -77,12 +77,6 @@
       Fingerprinting = true;
     };
   };
-
-  # Steam configuration
-  programs.steam = {
-    enable = true;
-    localNetworkGameTransfers.openFirewall = true;
-  };
   
   # Git configuration
   programs.git = {

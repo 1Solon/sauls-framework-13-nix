@@ -22,8 +22,10 @@
         modules = [
           ./configuration.nix
 
+          # Hardware specific configuration for Framework 13
           nixos-hardware.nixosModules.framework-amd-ai-300-series
 
+          # Home Manager module
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

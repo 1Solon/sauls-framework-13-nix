@@ -118,5 +118,11 @@
     options = [ "x-systemd.automount" "noauto" ]; 
   };
 
+  # Enable steam
+  programs.steam = {
+    enable = true;
+    localNetworkGameTransfers.openFirewall = true;
+  };
+
   system.stateVersion = "25.05";
 }
