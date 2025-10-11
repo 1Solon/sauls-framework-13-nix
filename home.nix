@@ -12,11 +12,14 @@
   programs.home-manager.enable = true;
 
   imports = [
+    # Subfile imports
     ./programs/zen.nix
     ./programs/git.nix
     ./programs/github-cli.nix
     ./programs/zsh.nix
     ./programs/starship.nix
+
+    # External imports
     inputs.zen-browser.homeModules.beta
   ];
 
