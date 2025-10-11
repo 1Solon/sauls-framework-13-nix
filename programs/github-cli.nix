@@ -1,4 +1,4 @@
-{ ... }
+{ ... }:
 
 {
   # Add GitHub CLI configuration
