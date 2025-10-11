@@ -19,8 +19,6 @@
     gh
 
     # Security & secrets
-    _1password-cli
-    _1password-gui
     sops
 
     # Kubernetes & cluster tooling
@@ -108,6 +106,8 @@
     shellAliases = {
       update = "nix flake update /home/saul/sauls-framework-13-nixos && sudo nixos-rebuild switch --impure --flake /home/saul/sauls-framework-13-nixos#sauls-laptop";
       config = "code /home/saul/sauls-framework-13-nixos";
+      init-kube = "mkdir -p ~/.kube && op document get \"kubeconfig\" > ~/.kube/config";
+      init-talos = "mkdir -p ~/.talos && op document get \"talosconfig\" > ~/.talos/config";
     };
   };
 

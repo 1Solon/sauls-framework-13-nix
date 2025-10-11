@@ -124,5 +124,12 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  # Enable 1password
+  programs._1password.enable = true;
+  programs._1password-gui = {
+    enable = true;
+    polkitPolicyOwners = [ "saul" ];
+  };
+
   system.stateVersion = "25.05";
 }
