@@ -12,32 +12,40 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, zen-browser, nixos-hardware, ... }: {
-    nixosConfigurations = {
-      sauls-laptop = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./configuration.nix
+  outputs =
+    inputs@{
+      nixpkgs,
+      home-manager,
+      zen-browser,
+      nixos-hardware,
+      ...
+    }:
+    {
+      nixosConfigurations = {
+        sauls-laptop = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./configuration.nix
 
-          # Hardware specific configuration for Framework 13
-          nixos-hardware.nixosModules.framework-amd-ai-300-series
+            # Hardware specific configuration for Framework 13
+            nixos-hardware.nixosModules.framework-amd-ai-300-series
 
-          # Home Manager module
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+            # Home Manager module
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
 
-            # Make all flake inputs (including zen-browser) available to home.nix
-            home-manager.extraSpecialArgs = { inherit inputs; };            
+              # Make all flake inputs (including zen-browser) available to home.nix
+              home-manager.extraSpecialArgs = { inherit inputs; };
 
-            home-manager.users.saul = import ./home.nix;
-          }
-        ];
+              home-manager.users.saul = import ./home.nix;
+            }
+          ];
+        };
       };
     };
-  };
 }

@@ -1,31 +1,41 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      /etc/nixos/hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    /etc/nixos/hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Enable BIOS updates
-  services.fwupd.enable = true; 
+  services.fwupd.enable = true;
 
   # Enable fingerprint reader
   services.fprintd.enable = true;
 
   # Enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Enable networking
   networking.networkmanager.enable = true;
   networking.hostName = "sauls-laptop";
-  networking.hosts = { "192.168.1.111" = [ "TrueNAS" ]; }; 
+  networking.hosts = {
+    "192.168.1.111" = [ "TrueNAS" ];
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Dublin";
@@ -78,7 +88,10 @@
   users.users.saul = {
     isNormalUser = true;
     description = "Saul Burgess";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [ ];
   };
 
@@ -113,10 +126,13 @@
   };
 
   # Mount NFS shares from TrueNAS
-  fileSystems."/home/saul/nfs" = { 
-    device = "192.168.1.111:/mnt/STORAGE-01/Media-Storage"; 
-    fsType = "nfs"; 
-    options = [ "x-systemd.automount" "noauto" ]; 
+  fileSystems."/home/saul/nfs" = {
+    device = "192.168.1.111:/mnt/STORAGE-01/Media-Storage";
+    fsType = "nfs";
+    options = [
+      "x-systemd.automount"
+      "noauto"
+    ];
   };
 
   # Enable steam
@@ -132,7 +148,7 @@
     polkitPolicyOwners = [ "saul" ];
   };
 
-  # Enable logitech 
+  # Enable logitech
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
 

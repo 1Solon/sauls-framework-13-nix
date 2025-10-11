@@ -1,7 +1,7 @@
-{ ... }: 
+{ ... }:
 {
 
-  # Enable Zen Browser  
+  # Enable Zen Browser
   programs.zen-browser.enable = true;
 
   # TODO: Figure out extensions

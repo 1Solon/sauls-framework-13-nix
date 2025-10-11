@@ -1,6 +1,11 @@
-{ config, pkgs, inputs, ...}:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
-{ 
+{
   home.username = "saul";
   home.homeDirectory = "/home/saul";
   home.stateVersion = "24.11";
@@ -10,10 +15,9 @@
     inputs.zen-browser.homeModules.beta
   ];
 
-   home.packages = with pkgs; [
+  home.packages = with pkgs; [
     # Editors
     vscode
-
 
     # Version control
     git
@@ -77,7 +81,7 @@
       Fingerprinting = true;
     };
   };
-  
+
   # Git configuration
   programs.git = {
     enable = true;
@@ -116,6 +120,6 @@
   # Starship prompt configuration
   programs.starship = {
     enable = true;
-    settings = {};
+    settings = { };
   };
 }
