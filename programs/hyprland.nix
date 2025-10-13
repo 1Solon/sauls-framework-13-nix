@@ -20,17 +20,6 @@ in
       # Auto-detect monitor and scale
       monitor = [ ",preferred,auto,2" ];
 
-      # Makes everything use the wayland backend where possible
-      env = [
-        "NIXOS_OZONE_WL,1"
-        "MOZ_ENABLE_WAYLAND,1"
-        "QT_QPA_PLATFORM,wayland"
-        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
-        "GDK_BACKEND,wayland,x11"
-        "MOZ_ENABLE_WAYLAND=1"
-      ];
-
-
       # Autostart
       exec-once = [
         "waybar"
