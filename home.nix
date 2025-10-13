@@ -8,7 +8,7 @@
 {
   home.username = "saul";
   home.homeDirectory = "/home/saul";
-  home.stateVersion = "24.11";
+  home.stateVersion = "25.05";
   programs.home-manager.enable = true;
 
   imports = [
@@ -19,6 +19,7 @@
     ./programs/zsh.nix
     ./programs/starship.nix
     ./programs/alacritty.nix
+    ./programs/hyprland.nix
 
     # External imports
     inputs.zen-browser.homeModules.beta

@@ -112,6 +112,11 @@
     git
     nfs-utils
     vscode
+    wget
+    foot
+    kitty
+    waybar
+    hyprpaper
   ];
 
   # Zen / 1Password stuff
@@ -154,6 +159,12 @@
 
   # Enable docker
   virtualisation.docker.enable = true;
+
+  # Enable hyprland
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
   system.stateVersion = "25.05";
 }
