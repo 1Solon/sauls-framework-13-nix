@@ -152,5 +152,8 @@
   hardware.logitech.wireless.enable = true;
   hardware.logitech.wireless.enableGraphical = true;
 
+  # Enable docker
+  virtualisation.docker.enable = true;
+
   system.stateVersion = "25.05";
 }
