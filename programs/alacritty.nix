@@ -1,10 +1,11 @@
 { ... }: {
-  program.alacritty.enable = true;
-  settings = {
-    window.opacity = 0.9;
-    font.normal = {
-      family = "JetBrains Mono";
-      style = "Regular";
-    };
+  program.alacritty = {
+    enable = true;
+    settings = {
+      window.opacity = 0.9;
+      font.normal = {
+        family = "JetBrains Mono";
+        style = "Regular";
+      };
   };
 }
