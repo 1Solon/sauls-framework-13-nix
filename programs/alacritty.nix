@@ -5,6 +5,6 @@
     font.normal = {
       family = "JetBrains Mono";
       style = "Regular";
-    }
-  }
+    };
+  };
 }
