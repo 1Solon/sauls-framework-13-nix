@@ -64,5 +64,6 @@
 
     # Communication
     discord-ptb
+    thunderbird
   ];
 }
