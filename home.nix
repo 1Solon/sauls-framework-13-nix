@@ -68,5 +68,8 @@
     discord-ptb
     thunderbird
     teams-for-linux
+
+    # Fonts
+    monaspace
   ];
 }
