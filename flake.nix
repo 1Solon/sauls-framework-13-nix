@@ -39,7 +39,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              # Make all flake inputs (including zen-browser) available to home.nix
+              # Make all flake inputs available to home.nix
               home-manager.extraSpecialArgs = { inherit inputs; };
 
               home-manager.users.saul = import ./home.nix;
