@@ -8,7 +8,7 @@ let
   mod = "SUPER";
 in
 {
-  # Enable Hyprland via Home Manager and provide a basic, sane config.
+  # Enable Hyprland via Home Manager
   wayland.windowManager.hyprland = {
     enable = true;
     package = pkgs.hyprland;
@@ -20,9 +20,21 @@ in
       # Auto-detect monitor and scale
       monitor = [ ",preferred,auto,2" ];
 
+      # Makes everything use the wayland backend where possible
+      env = [
+        "NIXOS_OZONE_WL,1"
+        "MOZ_ENABLE_WAYLAND,1"
+        "QT_QPA_PLATFORM,wayland"
+        "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+        "GDK_BACKEND,wayland,x11"
+        "MOZ_ENABLE_WAYLAND=1"
+      ];
+
       # Autostart
       exec-once = [
         "waybar"
+        "dunst"
+        "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
       ];
 
       input = {
@@ -36,7 +48,7 @@ in
         sensitivity = 0;
       };
 
-      # Keybindings: basic essentials
+      # Keybindings
       bind = [
         # Terminal
         "${mod}, Q, exec, alacritty"
@@ -72,6 +84,10 @@ in
         "${mod} SHIFT, 8, movetoworkspace, 8"
         "${mod} SHIFT, 9, movetoworkspace, 9"
         "${mod} SHIFT, 0, movetoworkspace, 10"
+
+        # Screenshots
+        ", Print, exec, sh -c 'REGION=$(slurp) || exit; grim -g \"$REGION\" - | wl-copy && wl-paste > ~/Pictures/screenshots/Screenshot-$(date +%F_%T).png && dunstify \"Screenshot of the region taken\" -t 1000'"
+        "SHIFT, Print, exec, sh -c 'grim - | wl-copy && wl-paste > ~/Pictures/screenshots/Screenshot-$(date +%F_%T).png && dunstify \"Screenshot of the whole screen taken\" -t 1000'"
       ];
 
       # Mouse bindings
@@ -130,18 +146,16 @@ in
         memory = { format = " {percentage}%"; tooltip = false; };
       };
     };
-
-
-  # # Wayland-friendly session env
-  # home.sessionVariables = {
-  #   NIXOS_OZONE_WL = "1";
-  #   MOZ_ENABLE_WAYLAND = "1";
-  #   XDG_CURRENT_DESKTOP = "Hyprland";
-  #   XDG_SESSION_TYPE = "wayland";
-  #   XDG_SESSION_DESKTOP = "Hyprland";
-  #   QT_QPA_PLATFORM = "wayland";
-  #   QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
+
+  home.packages = with pkgs; [
+    grim
+    slurp
+    wl-clipboard
+    dunst
+    libnotify
+    rofi-wayland
+  ];
 
   # XDG config conveniences
   xdg.enable = true;
