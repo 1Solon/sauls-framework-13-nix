@@ -36,7 +36,7 @@ in
       ];
 
       input = {
-        kb_layout = "uk";
+        kb_layout = "gb";
         kb_variant = "";
         kb_options = "caps:escape";
         follow_mouse = 1;
