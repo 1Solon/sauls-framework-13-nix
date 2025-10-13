@@ -66,5 +66,6 @@
     # Communication
     discord-ptb
     thunderbird
+    teams-for-linux
   ];
 }
