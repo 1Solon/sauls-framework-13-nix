@@ -58,9 +58,6 @@ in
           passes = 2;
           new_optimizations = true;
         };
-        drop_shadow = true;
-        shadow_range = 12;
-        "col.shadow" = "rgba(00000099)";
       };
 
       animations = {
