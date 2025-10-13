@@ -1,6 +1,4 @@
-{
-  ...
-}:
+{ config, pkgs, ... }:
 let
   mod = "SUPER";
 in
@@ -17,9 +15,29 @@ in
       # Auto-detect monitor and scale
       monitor = [ ",preferred,auto,2" ];
 
-      # Disables borders
+      # Window chrome
       general = {
-        border_size = 0;
+        border_size = 2;
+        "col.active_border" = "rgba(c0c0c0ff)"; # silver
+        "col.inactive_border" = "rgba(3a3d42cc)"; # muted border
+      };
+
+      # Decorations to match grey/silver scheme
+      decoration = {
+        rounding = 10;
+        shadow = {
+          enabled = true;
+          range = 20;
+          render_power = 3;
+          color = "0xaa000000";
+        };
+        blur = {
+          enabled = true;
+          size = 4;
+          passes = 2;
+        };
+        dim_inactive = true;
+        dim_strength = 0.05;
       };
 
       # Makes everything use the wayland backend where possible
@@ -35,7 +53,6 @@ in
       # Autostart
       exec-once = [
         "waybar"
-        "dunst"
         # Ensure screenshots directory exists
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
@@ -57,8 +74,8 @@ in
         # Terminal
         "${mod}, Q, exec, alacritty"
 
-        # App launcher
-        "${mod}, R, exec, rofi -show drun"
+  # App launcher (silver/grey theme)
+  "${mod}, R, exec, rofi -show drun -theme ~/.config/rofi/themes/silver-gray.rasi"
 
         # Window controls
         "${mod}, M, exit,"
@@ -99,6 +116,9 @@ in
         "${mod}, mouse:272, movewindow"
         "${mod}, mouse:273, resizewindow"
       ];
+
+      # Subtle blur for Waybar layer to match the theme
+      layerrule = [ "blur, waybar" ];
     };
   };
 
@@ -127,14 +147,14 @@ in
         };
 
         clock = {
-          format = "{:%a %b %d  %I:%M %p}";
+          format = "{:%a %b %d  %H:%M}";
           tooltip = true;
           tooltip-format = "{:%Y-%m-%d %H:%M:%S}";
         };
 
         pulseaudio = {
           format = "{volume}% ";
-          format-muted = "Muted ";
+          format-muted = "Muted ";
           scroll-step = 5;
         };
 
@@ -174,6 +194,55 @@ in
         };
       };
     };
+    # Grey/Silver Waybar styling
+    style = ''
+      @define-color base #1f2124;
+      @define-color surface #2a2c30;
+      @define-color text #e6e6e6;
+      @define-color muted #9aa0a6;
+      @define-color accent #c0c0c0;
+      @define-color border #3a3d42;
+
+      window#waybar {
+        background: alpha(@base, 0.85);
+        color: @text;
+        border: 1px solid @border;
+        border-radius: 10px;
+      }
+
+      tooltip {
+        background: @surface;
+        color: @text;
+        border: 1px solid @border;
+      }
+
+      #workspaces button {
+        padding: 0 10px;
+        color: @muted;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 8px;
+      }
+      #workspaces button.active {
+        color: @text;
+        background: @surface;
+        border: 1px solid @accent;
+      }
+      #workspaces button:hover {
+        background: alpha(@surface, 0.6);
+        color: @text;
+      }
+
+      #clock, #cpu, #memory, #network, #pulseaudio, #battery, #tray {
+        background: transparent;
+        color: @text;
+        padding: 0 12px;
+        margin: 0 2px;
+      }
+
+      #battery.warning { color: #ffcc66; }
+      #battery.critical { color: #ff6666; }
+    '';
   };
 
   # Hyprpaper for wallpapers
@@ -197,6 +266,43 @@ in
       ];
     };
 
+  # Dunst as a managed service with matching theme
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        frame_color = "#c0c0c0";
+        separator_color = "frame";
+        corner_radius = 8;
+        padding = 8;
+        horizontal_padding = 10;
+        origin = "top-right";
+        offset = "12x12";
+        font = "Sans 10";
+        markup = true;
+        transparency = 10;
+      };
+      urgency_low = {
+        background = "#2a2c30";
+        foreground = "#e6e6e6";
+        frame_color = "#3a3d42";
+        timeout = 4;
+      };
+      urgency_normal = {
+        background = "#2a2c30";
+        foreground = "#e6e6e6";
+        frame_color = "#c0c0c0";
+        timeout = 6;
+      };
+      urgency_critical = {
+        background = "#2a2c30";
+        foreground = "#ffffff";
+        frame_color = "#ff6666";
+        timeout = 0;
+      };
+    };
+  };
+
   home.packages = with pkgs; [
     grim
     slurp
@@ -208,4 +314,50 @@ in
 
   # XDG config conveniences
   xdg.enable = true;
+
+  # Rofi theme file matching the grey/silver palette
+  xdg.configFile."rofi/themes/silver-gray.rasi".text = ''
+    * {
+      bg:      #1f2124;
+      bg-alt:  #2a2c30;
+      fg:      #e6e6e6;
+      muted:   #9aa0a6;
+      accent:  #c0c0c0;
+      border:  #3a3d42;
+    }
+
+    window {
+      background-color: @bg;
+      border: 1px solid @accent;
+      border-radius: 10px;
+    }
+
+    inputbar {
+      background-color: @bg-alt;
+      text-color: @fg;
+      border: 1px solid @border;
+    }
+
+    listview { background-color: transparent; }
+
+    element {
+      background-color: transparent;
+      text-color: @fg;
+    }
+    element selected {
+      background-color: @bg-alt;
+      text-color: @fg;
+      border: 1px solid @accent;
+    }
+
+    prompt, message { text-color: @fg; }
+  '';
+
+  # Cursor to match the theme (grey/silver)
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+  };
 }
