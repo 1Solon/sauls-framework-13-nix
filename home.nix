@@ -47,6 +47,7 @@
     zsh
     zsh-autocomplete
     starship
+    wezterm
 
     # Languages & toolchains
     cue
