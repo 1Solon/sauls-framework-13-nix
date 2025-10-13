@@ -18,6 +18,7 @@
     ./programs/github-cli.nix
     ./programs/zsh.nix
     ./programs/starship.nix
+    ./programs/alacritty.nix
 
     # External imports
     inputs.zen-browser.homeModules.beta
