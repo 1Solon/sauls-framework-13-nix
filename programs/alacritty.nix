@@ -1,5 +1,5 @@
 { ... }: {
-  program.alacritty = {
+  programs.alacritty = {
     enable = true;
     settings = {
       window.opacity = 0.9;
@@ -7,5 +7,6 @@
         family = "JetBrains Mono";
         style = "Regular";
       };
+    };
   };
 }
