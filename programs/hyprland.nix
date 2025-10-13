@@ -94,14 +94,22 @@ in
 
       # Keybindings: basic essentials
       bind = [
+        # Terminal
+        "${mod}, Q, exec, alacritty"
         "${mod}, Return, exec, alacritty"
-        "${mod}, Q, killactive,"
+
+        # File explorer
+        "${mod}, E, exec, thunar"
+
+        # App launcher
+        "${mod}, R, exec, rofi -show drun"
+
+        # Window controls
         "${mod}, M, exit,"
         "${mod}, F, fullscreen, 0"
         "${mod}, V, togglefloating,"
-        "${mod}, R, exec, rofi -show drun"
 
-        # Workspaces 1..9
+        # Workspaces 1..10 (0 maps to 10)
         "${mod}, 1, workspace, 1"
         "${mod}, 2, workspace, 2"
         "${mod}, 3, workspace, 3"
@@ -111,8 +119,9 @@ in
         "${mod}, 7, workspace, 7"
         "${mod}, 8, workspace, 8"
         "${mod}, 9, workspace, 9"
+        "${mod}, 0, workspace, 10"
 
-        # Move focused window to workspace 1..9
+        # Move focused window to workspace 1..10
         "${mod} SHIFT, 1, movetoworkspace, 1"
         "${mod} SHIFT, 2, movetoworkspace, 2"
         "${mod} SHIFT, 3, movetoworkspace, 3"
@@ -122,6 +131,7 @@ in
         "${mod} SHIFT, 7, movetoworkspace, 7"
         "${mod} SHIFT, 8, movetoworkspace, 8"
         "${mod} SHIFT, 9, movetoworkspace, 9"
+        "${mod} SHIFT, 0, movetoworkspace, 10"
       ];
 
       # Mouse bindings
@@ -223,6 +233,7 @@ in
   home.packages = with pkgs; [
     rofi-wayland
     wl-clipboard
+    thunar
   ];
 
   # XDG config conveniences
