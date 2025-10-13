@@ -1,7 +1,4 @@
 {
-  config,
-  lib,
-  pkgs,
   ...
 }:
 let
@@ -39,7 +36,9 @@ in
       exec-once = [
         "waybar"
         "dunst"
+        # Ensure screenshots directory exists
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
+        "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
       ];
 
       input = {
@@ -114,7 +113,14 @@ in
         height = 32;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
-        modules-right = [ "cpu" "memory" "pulseaudio" "network" "battery" "tray" ];
+        modules-right = [
+          "cpu"
+          "memory"
+          "pulseaudio"
+          "network"
+          "battery"
+          "tray"
+        ];
 
         "hyprland/workspaces" = {
           format = "{name}"; # show numeric workspace names
@@ -140,18 +146,56 @@ in
         };
 
         battery = {
-          states = { warning = 25; critical = 10; };
+          states = {
+            warning = 25;
+            critical = 10;
+          };
           format = "{capacity}% {icon}";
-          "format-icons" = [ "" "" "" "" "" ];
+          "format-icons" = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
 
-        tray = { spacing = 8; };
+        tray = {
+          spacing = 8;
+        };
 
-        cpu = { format = " {usage}%"; tooltip = false; };
-        memory = { format = " {percentage}%"; tooltip = false; };
+        cpu = {
+          format = " {usage}%";
+          tooltip = false;
+        };
+        memory = {
+          format = " {percentage}%";
+          tooltip = false;
+        };
       };
     };
   };
+
+  # Hyprpaper for wallpapers
+  services.hyprpaper.enable = true;
+
+  services.hyprpaper.settings =
+    let
+      wallpaperDir = "${config.home.homeDirectory}/Pictures/Wallpapers";
+    in
+    {
+      ipc = "on";
+      splash = false;
+      splash_offset = 2.0;
+
+      preload = [
+        "${wallpaperDir}/progress.jpg"
+      ];
+
+      wallpaper = [
+        ",${wallpaperDir}/progress.jpg"
+      ];
+    };
 
   home.packages = with pkgs; [
     grim
