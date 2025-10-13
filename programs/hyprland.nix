@@ -17,18 +17,19 @@ in
     settings = {
       "$mod" = mod;
 
-      # Auto-detect monitor and scale 1.0
+      # Auto-detect monitor and scale
       monitor = [ ",preferred,auto,2" ];
 
-      # Common Wayland env vars for better app compatibility
+      # Makes everything use the wayland backend where possible
       env = [
-        "XCURSOR_SIZE,24"
         "NIXOS_OZONE_WL,1"
         "MOZ_ENABLE_WAYLAND,1"
         "QT_QPA_PLATFORM,wayland"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "GDK_BACKEND,wayland,x11"
+        "MOZ_ENABLE_WAYLAND=1"
       ];
+
 
       # Autostart
       exec-once = [
@@ -97,9 +98,6 @@ in
         # Terminal
         "${mod}, Q, exec, alacritty"
         "${mod}, Return, exec, alacritty"
-
-        # File explorer
-        "${mod}, E, exec, thunar"
 
         # App launcher
         "${mod}, R, exec, rofi -show drun"
@@ -228,13 +226,6 @@ in
     QT_QPA_PLATFORM = "wayland";
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
-
-  # Useful companion tools (minimal set)
-  home.packages = with pkgs; [
-    rofi-wayland
-    wl-clipboard
-    thunar
-  ];
 
   # XDG config conveniences
   xdg.enable = true;

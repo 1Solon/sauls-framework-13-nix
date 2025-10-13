@@ -72,5 +72,9 @@
 
     # Fonts
     monaspace
+
+    # Hyprland companion tools
+    rofi-wayland
+    wl-clipboard
   ];
 }
