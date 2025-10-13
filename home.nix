@@ -52,6 +52,7 @@
     cue
     go
     python3
+    nodejs
 
     # Build & task runners
     go-task
