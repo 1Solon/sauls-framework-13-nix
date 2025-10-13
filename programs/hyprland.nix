@@ -22,7 +22,7 @@ in
         "col.inactive_border" = "rgba(3a3d42cc)"; # muted border
       };
 
-      # Decorations to match grey/silver scheme
+      # Decoration settings
       decoration = {
         rounding = 10;
         shadow = {
@@ -53,7 +53,6 @@ in
       # Autostart
       exec-once = [
         "waybar"
-        # Ensure screenshots directory exists
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
       ];
@@ -74,8 +73,8 @@ in
         # Terminal
         "${mod}, Q, exec, alacritty"
 
-  # App launcher (silver/grey theme)
-  "${mod}, R, exec, rofi -show drun -theme ~/.config/rofi/themes/silver-gray.rasi"
+        # App launcher
+        "${mod}, R, exec, rofi -show drun -theme ~/.config/rofi/themes/silver-gray.rasi"
 
         # Window controls
         "${mod}, M, exit,"
@@ -117,7 +116,7 @@ in
         "${mod}, mouse:273, resizewindow"
       ];
 
-      # Subtle blur for Waybar layer to match the theme
+      # Subtle blur for Waybar
       layerrule = [ "blur, waybar" ];
     };
   };
@@ -130,7 +129,7 @@ in
       mainBar = {
         layer = "top";
         position = "top";
-        height = 32;
+        height = 40;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
         modules-right = [
@@ -194,7 +193,7 @@ in
         };
       };
     };
-    # Grey/Silver Waybar styling
+    # Waybar styling
     style = ''
       @define-color base #1f2124;
       @define-color surface #2a2c30;
@@ -266,7 +265,7 @@ in
       ];
     };
 
-  # Dunst as a managed service with matching theme
+  # Dunst as a managed service theme
   services.dunst = {
     enable = true;
     settings = {
@@ -315,40 +314,54 @@ in
   # XDG config conveniences
   xdg.enable = true;
 
-  # Rofi theme file matching the grey/silver palette
+  # Rofi theme
   xdg.configFile."rofi/themes/silver-gray.rasi".text = ''
     * {
-      bg:      #1f2124;
-      bg-alt:  #2a2c30;
+      bg:      #121417;
+      bg-alt:  #1b1d21;
       fg:      #e6e6e6;
       muted:   #9aa0a6;
-      accent:  #c0c0c0;
-      border:  #3a3d42;
+      accent:  #b8b9bd;
+      border:  #2b2e33;
     }
 
     window {
       background-color: @bg;
-      border: 1px solid @accent;
-      border-radius: 10px;
+      border: 1;
+      border-color: @border;
+      border-radius: 10;
+    }
+
+    mainbox {
+      background-color: @bg;
+      padding: 10;
+      spacing: 8;
     }
 
     inputbar {
       background-color: @bg-alt;
       text-color: @fg;
-      border: 1px solid @border;
+      border: 1;
+      border-color: @border;
     }
 
-    listview { background-color: transparent; }
+    listview { background-color: @bg; spacing: 2; }
+    textbox { background-color: @bg; text-color: @fg; }
+    prompt { background-color: @bg-alt; text-color: @fg; }
+    entry { background-color: @bg-alt; text-color: @fg; }
 
-    element {
-      background-color: transparent;
-      text-color: @fg;
-    }
+    element { background-color: @bg; text-color: @fg; border: 0; }
+    element alternate { background-color: @bg; }
+    element normal { background-color: @bg; }
     element selected {
       background-color: @bg-alt;
       text-color: @fg;
-      border: 1px solid @accent;
+      border: 1;
+      border-color: @accent;
+      border-radius: 6;
     }
+    element-text { background-color: inherit; text-color: inherit; highlight: @accent; }
+    element-icon { background-color: inherit; }
 
     prompt, message { text-color: @fg; }
   '';
