@@ -17,7 +17,7 @@ in
 
       # Window chrome
       general = {
-        border_size = 1;
+        border_size = 0; # no border
         "col.active_border" = "rgba(c0c0c0ff)"; # silver
         "col.inactive_border" = "rgba(3a3d42cc)"; # muted border
       };
@@ -66,6 +66,17 @@ in
           natural_scroll = true;
         };
         sensitivity = 0;
+      };
+
+      # Touchpad gestures
+      gestures = {
+        workspace_swipe = true;
+        workspace_swipe_fingers = 3;
+        workspace_swipe_distance = 500;
+        workspace_swipe_invert = true;
+        workspace_swipe_min_speed_to_force = 30;
+        workspace_swipe_cancel_ratio = 0.2;
+        workspace_swipe_create_new = true;
       };
 
       # Keybindings
