@@ -30,8 +30,13 @@ in
         "GDK_BACKEND,wayland,x11"
       ];
 
+      # Autostart
+      exec-once = [
+        "waybar"
+      ];
+
       input = {
-        kb_layout = "us";
+        kb_layout = "uk";
         kb_variant = "";
         kb_options = "caps:escape";
         follow_mouse = 1;
@@ -125,6 +130,82 @@ in
         "${mod}, mouse:273, resizewindow"
       ];
     };
+  };
+
+  # Waybar with Hyprland workspaces
+  programs.waybar = {
+    enable = true;
+    package = pkgs.waybar;
+    settings = {
+      mainBar = {
+        layer = "top";
+        position = "top";
+        height = 32;
+        modules-left = [ "hyprland/workspaces" ];
+        modules-center = [ "clock" ];
+        modules-right = [ "cpu" "memory" "pulseaudio" "network" "battery" "tray" ];
+
+        "hyprland/workspaces" = {
+          format = "{name}"; # show numeric workspace names
+        };
+
+        clock = {
+          format = "{:%a %b %d  %I:%M %p}";
+          tooltip = true;
+          tooltip-format = "{:%Y-%m-%d %H:%M:%S}";
+        };
+
+        pulseaudio = {
+          format = "{volume}% ";
+          format-muted = "Muted ";
+          scroll-step = 5;
+        };
+
+        network = {
+          format-wifi = "{signalStrength}% ";
+          format-ethernet = "";
+          format-disconnected = "";
+          tooltip = true;
+        };
+
+        battery = {
+          states = { warning = 25; critical = 10; };
+          format = "{capacity}% {icon}";
+          "format-icons" = [ "" "" "" "" "" ];
+        };
+
+        tray = { spacing = 8; };
+
+        cpu = { format = " {usage}%"; tooltip = false; };
+        memory = { format = " {percentage}%"; tooltip = false; };
+      };
+    };
+
+    style = ''
+      * {
+        font-family: "Monaspace Neon", "Fira Sans", sans-serif;
+        font-size: 12pt;
+      }
+      window#waybar {
+        background: rgba(30, 30, 46, 0.85);
+        color: #cdd6f4;
+        border-bottom: 1px solid rgba(108, 112, 134, 0.35);
+      }
+      #workspaces button {
+        padding: 0 8px;
+        color: #a6adc8;
+      }
+      #workspaces button.active {
+        color: #11111b;
+        background: #89b4fa;
+        border-radius: 8px;
+      }
+      #cpu, #memory, #battery, #network, #pulseaudio, #clock, #tray {
+        padding: 0 10px;
+      }
+      #battery.warning { color: #f9e2af; }
+      #battery.critical { color: #f38ba8; }
+    '';
   };
 
   # Wayland-friendly session env
