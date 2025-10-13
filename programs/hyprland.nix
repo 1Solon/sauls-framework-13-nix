@@ -18,7 +18,7 @@ in
       "$mod" = mod;
 
       # Auto-detect monitor and scale 1.0
-      monitor = [ ",preferred,auto,1" ];
+      monitor = [ ",preferred,auto,2" ];
 
       # Common Wayland env vars for better app compatibility
       env = [
