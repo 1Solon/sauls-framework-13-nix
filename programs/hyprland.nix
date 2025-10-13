@@ -119,6 +119,15 @@ in
         # Screenshots
         ", Print, exec, sh -c 'REGION=$(slurp) || exit; grim -g \"$REGION\" - | wl-copy && wl-paste > ~/Pictures/screenshots/Screenshot-$(date +%F_%T).png && dunstify \"Screenshot of the region taken\" -t 1000'"
         "SHIFT, Print, exec, sh -c 'grim - | wl-copy && wl-paste > ~/Pictures/screenshots/Screenshot-$(date +%F_%T).png && dunstify \"Screenshot of the whole screen taken\" -t 1000'"
+
+        # Volume controls
+        ''${mod}, XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ && dunstify "Volume: $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')%" -t 1000''
+        ''${mod}, XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- && dunstify "Volume: $(wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)}')%" -t 1000''
+        ''${mod}, XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle && dunstify "$(wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 'Muted' || echo 'Unmuted')" -t 1000''
+
+        # Brightness controls
+        ''${mod}, XF86MonBrightnessUp, exec, brightnessctl set 5%+ && dunstify "Brightness: $(brightnessctl -m info | cut -d, -f4)" -t 1000''
+        ''${mod}, XF86MonBrightnessDown, exec, brightnessctl set 5%- && dunstify "Brightness: $(brightnessctl -m info | cut -d, -f4)" -t 1000''
       ];
 
       # Mouse bindings
@@ -320,6 +329,7 @@ in
     dunst
     libnotify
     rofi-wayland
+    brightnessctl
   ];
 
   # XDG config conveniences
