@@ -17,7 +17,7 @@ in
 
       # Window chrome
       general = {
-        border_size = 2;
+        border_size = 1;
         "col.active_border" = "rgba(c0c0c0ff)"; # silver
         "col.inactive_border" = "rgba(3a3d42cc)"; # muted border
       };
@@ -370,7 +370,7 @@ in
   home.pointerCursor = {
     name = "Bibata-Modern-Classic";
     package = pkgs.bibata-cursors;
-    size = 24;
+    size = 12;
     gtk.enable = true;
   };
 }
