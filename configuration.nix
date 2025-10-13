@@ -21,6 +21,9 @@
   # Enable BIOS updates
   services.fwupd.enable = true;
 
+  # Disable power-profiles-daemon (conflicts with auto-cpufreq)
+  services.power-profiles-daemon.enable = false;
+
   # Power saving and management
   services.auto-cpufreq.enable = true;
   services.auto-cpufreq.settings = {
