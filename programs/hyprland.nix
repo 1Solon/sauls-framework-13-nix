@@ -20,6 +20,11 @@ in
       # Auto-detect monitor and scale
       monitor = [ ",preferred,auto,2" ];
 
+      # Disables borders
+      general = {
+        border_size = 0;
+      };
+
       # Makes everything use the wayland backend where possible
       env = [
         "NIXOS_OZONE_WL,1"
