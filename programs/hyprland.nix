@@ -44,60 +44,13 @@ in
         touchpad = {
           natural_scroll = true;
         };
-        sensitivity = 0; # -1.0 to 1.0, 0 means no modification
-      };
-
-      general = {
-        gaps_in = 6;
-        gaps_out = 12;
-        border_size = 2;
-        "col.active_border" = "rgba(89b4faee) rgba(b4befeaa) 45deg";
-        "col.inactive_border" = "rgba(585b70aa)";
-        layout = "dwindle";
-      };
-
-      decoration = {
-        rounding = 8;
-        blur = {
-          enabled = true;
-          size = 6;
-          passes = 2;
-          new_optimizations = true;
-        };
-      };
-
-      animations = {
-        enabled = true;
-        bezier = [
-          "overshot,0.05,0.9,0.1,1.05"
-          "smoothOut,0.36,0,0.66,-0.56"
-          "smoothIn,0.25,1,0.5,1"
-        ];
-        animation = [
-          "windows,1,7,overshot,slide"
-          "border,1,10,default"
-          "fade,1,7,default"
-          "workspaces,1,6,overshot,slidevert"
-        ];
-      };
-
-      dwindle = {
-        pseudotile = true;
-        preserve_split = true;
-      };
-
-      misc = {
-        disable_hyprland_logo = true;
-        disable_splash_rendering = true;
-        mouse_move_enables_dpms = true;
-        focus_on_activate = true;
+        sensitivity = 0;
       };
 
       # Keybindings: basic essentials
       bind = [
         # Terminal
         "${mod}, Q, exec, alacritty"
-        "${mod}, Return, exec, alacritty"
 
         # App launcher
         "${mod}, R, exec, rofi -show drun"
@@ -189,42 +142,16 @@ in
       };
     };
 
-    style = ''
-      * {
-        font-family: "Monaspace Neon", "Fira Sans", sans-serif;
-        font-size: 12pt;
-      }
-      window#waybar {
-        background: rgba(30, 30, 46, 0.85);
-        color: #cdd6f4;
-        border-bottom: 1px solid rgba(108, 112, 134, 0.35);
-      }
-      #workspaces button {
-        padding: 0 8px;
-        color: #a6adc8;
-      }
-      #workspaces button.active {
-        color: #11111b;
-        background: #89b4fa;
-        border-radius: 8px;
-      }
-      #cpu, #memory, #battery, #network, #pulseaudio, #clock, #tray {
-        padding: 0 10px;
-      }
-      #battery.warning { color: #f9e2af; }
-      #battery.critical { color: #f38ba8; }
-    '';
-  };
 
-  # Wayland-friendly session env
-  home.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-    MOZ_ENABLE_WAYLAND = "1";
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    QT_QPA_PLATFORM = "wayland";
-    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+  # # Wayland-friendly session env
+  # home.sessionVariables = {
+  #   NIXOS_OZONE_WL = "1";
+  #   MOZ_ENABLE_WAYLAND = "1";
+  #   XDG_CURRENT_DESKTOP = "Hyprland";
+  #   XDG_SESSION_TYPE = "wayland";
+  #   XDG_SESSION_DESKTOP = "Hyprland";
+  #   QT_QPA_PLATFORM = "wayland";
+  #   QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
   };
 
   # XDG config conveniences
