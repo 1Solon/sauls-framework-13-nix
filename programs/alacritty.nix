@@ -4,7 +4,7 @@
     settings = {
       window.opacity = 0.9;
       font.normal = {
-        family = "JetBrains Mono";
+        family = "Monaspace Neon";
         style = "Regular";
       };
     };
