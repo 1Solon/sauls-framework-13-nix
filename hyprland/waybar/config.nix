@@ -116,7 +116,7 @@
         };
 
         "custom/expand" = {
-          format = "";
+          format = "❮";
           tooltip = false;
         };
 
