@@ -64,6 +64,7 @@
     # System utilities
     xdg-utils
     logiops
+    btop
 
     # Communication
     discord-ptb
@@ -72,6 +73,17 @@
 
     # Fonts
     monaspace
+
+    # Hyprland dependencies
+    grim
+    slurp
+    wl-clipboard
+    dunst
+    libnotify
+    rofi-wayland
+    brightnessctl
+    fastfetch
+
   ];
 
   # Enable dark theme for GTK applications

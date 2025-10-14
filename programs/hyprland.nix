@@ -89,8 +89,12 @@ in
 
         # Window controls
         "${mod}, M, exit,"
+        "${mod}, C, killactive,"
         "${mod}, F, fullscreen, 0"
         "${mod}, V, togglefloating,"
+
+        # Alt+Tab window switching with rofi
+        "ALT, Tab, exec, rofi -show window -theme ~/.config/rofi/themes/silver-gray.rasi"
 
         # Workspaces 1..10 (0 maps to 10)
         "${mod}, 1, workspace, 1"
@@ -182,6 +186,7 @@ in
           format-ethernet = "";
           format-disconnected = "";
           tooltip = true;
+          on-click = "alacritty -e nmtui";
         };
 
         battery = {
@@ -206,10 +211,12 @@ in
         cpu = {
           format = " {usage}%";
           tooltip = false;
+          on-click = "alacritty -e btop --preset 1";
         };
         memory = {
           format = " {percentage}%";
           tooltip = false;
+          on-click = "alacritty -e btop --preset 2";
         };
       };
     };
@@ -272,9 +279,8 @@ in
       wallpaperDir = "${config.home.homeDirectory}/Pictures/Wallpapers";
     in
     {
-      ipc = "on";
+      ipc = false;
       splash = false;
-      splash_offset = 2.0;
 
       preload = [
         "${wallpaperDir}/progress.jpg"
@@ -321,16 +327,6 @@ in
       };
     };
   };
-
-  home.packages = with pkgs; [
-    grim
-    slurp
-    wl-clipboard
-    dunst
-    libnotify
-    rofi-wayland
-    brightnessctl
-  ];
 
   # XDG config conveniences
   xdg.enable = true;
