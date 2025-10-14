@@ -6,7 +6,38 @@
 }:
 
 let
-  sddm-theme = pkgs.sddm-astronaut;
+  sddm-theme = pkgs.where-is-my-sddm-theme.override {
+    themeConfig.General = {
+      # Custom wallpaper
+      background = "${./static/wallpaper.jpg}";
+      backgroundFillMode = "aspect";
+      
+      basicTextColor = "#d3d3d3"; 
+      passwordTextColor = "#f5f5f5";  
+      passwordCursorColor = "#c0c0c0";  
+      passwordInputBackground = "#2a2a2a";  
+
+      passwordInputWidth = "0.35";
+      passwordInputRadius = "10"; 
+      passwordMask = true;
+      passwordCharacter = "*";
+      passwordFontSize = 72; 
+      passwordInputCursorVisible = true;
+      
+      hideCursor = true; 
+      cursorBlinkAnimation = true;
+      showSessionsByDefault = false;
+      showUsersByDefault = false;
+      
+      font = "Monaspace Neon";  # Match your terminal font
+      helpFont = "Monaspace Neon";
+      sessionsFontSize = 20;
+      usersFontSize = 40;
+      helpFontSize = 16;
+      
+      blurRadius = 15;
+    };
+  };
 in
 {
   imports = [
@@ -89,12 +120,12 @@ in
   # Enable Qt for SDDM theme
   qt.enable = true;
 
-  # Enable SDDM Display Manager with Astronaut theme
+  # Enable SDDM Display Manager with Where Is My SDDM theme
   services.displayManager.sddm = {
     package = pkgs.kdePackages.sddm; # use qt6 version of sddm
     enable = true;
     wayland.enable = true;
-    theme = "sddm-astronaut-theme";
+    theme = "where_is_my_sddm_theme";
     extraPackages = [ sddm-theme ];
     settings = {
       General = {
