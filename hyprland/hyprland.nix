@@ -100,12 +100,6 @@ in
 
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
-
-        # Autostart
-        "[workspace 2 silent] zen"
-        "[workspace 3 silent] Discord"
-        "[workspace 3 silent] teams-for-linux"
-        "[workspace 4 silent] thunderbird"
       ];
 
       input = {

@@ -6,9 +6,7 @@
 }:
 
 let
-  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
-    theme = "default";
-  };
+  sddm-theme = pkgs.sddm-astronaut;
 in
 {
   imports = [
@@ -91,13 +89,13 @@ in
   # Enable Qt for SDDM theme
   qt.enable = true;
 
-  # Enable SDDM Display Manager with SilentSDDM theme
+  # Enable SDDM Display Manager with Astronaut theme
   services.displayManager.sddm = {
     package = pkgs.kdePackages.sddm; # use qt6 version of sddm
     enable = true;
     wayland.enable = true;
-    theme = sddm-theme.pname;
-    extraPackages = sddm-theme.propagatedBuildInputs;
+    theme = "sddm-astronaut-theme";
+    extraPackages = [ sddm-theme ];
     settings = {
       General = {
         scale = 10;
