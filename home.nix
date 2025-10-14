@@ -70,7 +70,7 @@
     htop
 
     # Communication
-    discord-ptb
+    discord
     thunderbird
     teams-for-linux
 

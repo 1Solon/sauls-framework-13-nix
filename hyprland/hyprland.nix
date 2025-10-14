@@ -103,7 +103,7 @@ in
 
         # Autostart
         "[workspace 2 silent] zen"
-        "[workspace 3 silent] DiscordPTB"
+        "[workspace 3 silent] Discord"
         "[workspace 3 silent] teams-for-linux"
         "[workspace 4 silent] thunderbird"
       ];
