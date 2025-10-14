@@ -78,7 +78,7 @@
           tooltip-format-disconnected = "Disconnected";
           tooltip-format-wifi = "{essid} ({signalStrength}%) 󰖩";
           tooltip-format-ethernet = "{ifname} 󰈀";
-          on-click = "kitty nmtui";
+          on-click = "alacritty -e nmtui";
         };
 
         bluetooth = {

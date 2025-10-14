@@ -66,6 +66,7 @@
     xdg-utils
     logiops
     btop
+    htop
 
     # Communication
     discord-ptb

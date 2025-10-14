@@ -8,7 +8,7 @@
       show = "drun";
       prompt = "Search";
       height = 400;
-      term = "kitty";
+      term = "alacritty";
       hide_scroll = true;
       print_command = true;
       insensitive = true;

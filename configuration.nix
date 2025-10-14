@@ -130,7 +130,6 @@
     vscode
     wget
     foot
-    kitty
     waybar
     hyprpaper
     xorg.xbacklight
