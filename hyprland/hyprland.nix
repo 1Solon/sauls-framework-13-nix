@@ -92,7 +92,7 @@ in
         "${mod}, Q, exec, alacritty"
 
         # App launcher
-        "${mod}, R, exec, rofi -show drun -theme ~/.config/rofi/themes/silver-gray.rasi"
+        "${mod}, R, exec, wofi --show drun"
 
         # Window controls
         "${mod}, M, exit,"
@@ -100,15 +100,12 @@ in
         "${mod}, F, fullscreen, 0"
         "${mod}, V, togglefloating,"
 
-        # Alt+Tab window switching with rofi
-        "ALT, Tab, exec, rofi -show window -theme ~/.config/rofi/themes/silver-gray.rasi"
-
         # Workspaces 1..10 (0 maps to 10)
         "${mod}, 1, workspace, 1"
         "${mod}, 2, workspace, 2"
         "${mod}, 3, workspace, 3"
         "${mod}, 4, workspace, 4"
-        "${mod}, 5, workspace,On login, I'd like workspace one to contain fastfetch btop and  5"
+        "${mod}, 5, workspace, 5"
         "${mod}, 6, workspace, 6"
         "${mod}, 7, workspace, 7"
         "${mod}, 8, workspace, 8"
@@ -178,56 +175,6 @@ in
 
   # XDG config conveniences
   xdg.enable = true;
-  xdg.configFile."rofi/themes/silver-gray.rasi".text = ''
-    * {
-      bg:      #121417;
-      bg-alt:  #1b1d21;
-      fg:      #e6e6e6;
-      muted:   #9aa0a6;
-      accent:  #b8b9bd;
-      border:  #2b2e33;
-    }
-
-    window {
-      background-color: @bg;
-      border: 1;
-      border-color: @border;
-      border-radius: 10;
-    }
-
-    mainbox {
-      background-color: @bg;
-      padding: 10;
-      spacing: 8;
-    }
-
-    inputbar {
-      background-color: @bg-alt;
-      text-color: @fg;
-      border: 1;
-      border-color: @border;
-    }
-
-    listview { background-color: @bg; spacing: 2; }
-    textbox { background-color: @bg; text-color: @fg; }
-    prompt { background-color: @bg-alt; text-color: @fg; }
-    entry { background-color: @bg-alt; text-color: @fg; }
-
-    element { background-color: @bg; text-color: @fg; border: 0; }
-    element alternate { background-color: @bg; }
-    element normal { background-color: @bg; }
-    element selected {
-      background-color: @bg-alt;
-      text-color: @fg;
-      border: 1;
-      border-color: @accent;
-      border-radius: 6;
-    }
-    element-text { background-color: inherit; text-color: inherit; highlight: @accent; }
-    element-icon { background-color: inherit; }
-
-    prompt, message { text-color: @fg; }
-  '';
 
   # Cursor to match the theme (grey/silver)
   home.pointerCursor = {

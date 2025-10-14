@@ -20,6 +20,7 @@
     ./programs/starship.nix
     ./programs/alacritty.nix
     ./hyprland/hyprland.nix
+    ./hyprland/wofi/config.nix
 
     # External imports
     inputs.zen-browser.homeModules.beta
@@ -80,7 +81,7 @@
     wl-clipboard
     swaynotificationcenter
     libnotify
-    rofi-wayland
+    wofi
     fastfetch
     blueman
 
