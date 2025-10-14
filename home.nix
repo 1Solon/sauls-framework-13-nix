@@ -19,7 +19,7 @@
     ./programs/zsh.nix
     ./programs/starship.nix
     ./programs/alacritty.nix
-    ./programs/hyprland.nix
+    ./hyprland/hyprland.nix
 
     # External imports
     inputs.zen-browser.homeModules.beta
@@ -78,11 +78,12 @@
     grim
     slurp
     wl-clipboard
-    dunst
+    swaynotificationcenter
     libnotify
     rofi-wayland
     brightnessctl
     fastfetch
+    blueman
 
   ];
 

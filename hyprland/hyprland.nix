@@ -3,6 +3,10 @@ let
   mod = "SUPER";
 in
 {
+  imports = [
+    ./waybar/config.nix
+  ];
+
   # Enable Hyprland via Home Manager
   wayland.windowManager.hyprland = {
     enable = true;
@@ -146,132 +150,6 @@ in
     };
   };
 
-  # Waybar with Hyprland workspaces
-  programs.waybar = {
-    enable = true;
-    package = pkgs.waybar;
-    settings = {
-      mainBar = {
-        layer = "top";
-        position = "top";
-        height = 40;
-        modules-left = [ "hyprland/workspaces" ];
-        modules-center = [ "clock" ];
-        modules-right = [
-          "cpu"
-          "memory"
-          "pulseaudio"
-          "network"
-          "battery"
-          "tray"
-        ];
-
-        "hyprland/workspaces" = {
-          format = "{name}"; # show numeric workspace names
-        };
-
-        clock = {
-          format = "{:%a %b %d  %H:%M}";
-          tooltip = true;
-          tooltip-format = "{:%Y-%m-%d %H:%M:%S}";
-        };
-
-        pulseaudio = {
-          format = "{volume}% ";
-          format-muted = "Muted ";
-          scroll-step = 5;
-        };
-
-        network = {
-          format-wifi = "{signalStrength}% ";
-          format-ethernet = "";
-          format-disconnected = "";
-          tooltip = true;
-          on-click = "alacritty -e nmtui";
-        };
-
-        battery = {
-          states = {
-            warning = 25;
-            critical = 10;
-          };
-          format = "{capacity}% {icon}";
-          "format-icons" = [
-            ""
-            ""
-            ""
-            ""
-            ""
-          ];
-        };
-
-        tray = {
-          spacing = 8;
-        };
-
-        cpu = {
-          format = " {usage}%";
-          tooltip = false;
-          on-click = "alacritty -e btop --preset 1";
-        };
-        memory = {
-          format = " {percentage}%";
-          tooltip = false;
-          on-click = "alacritty -e btop --preset 2";
-        };
-      };
-    };
-    # Waybar styling
-    style = ''
-      @define-color base #1f2124;
-      @define-color surface #2a2c30;
-      @define-color text #e6e6e6;
-      @define-color muted #9aa0a6;
-      @define-color accent #c0c0c0;
-      @define-color border #3a3d42;
-
-      window#waybar {
-        background: alpha(@base, 0.85);
-        color: @text;
-        border: 1px solid @border;
-        border-radius: 10px;
-      }
-
-      tooltip {
-        background: @surface;
-        color: @text;
-        border: 1px solid @border;
-      }
-
-      #workspaces button {
-        padding: 0 10px;
-        color: @muted;
-        background: transparent;
-        border: 1px solid transparent;
-        border-radius: 8px;
-      }
-      #workspaces button.active {
-        color: @text;
-        background: @surface;
-        border: 1px solid @accent;
-      }
-      #workspaces button:hover {
-        background: alpha(@surface, 0.6);
-        color: @text;
-      }
-
-      #clock, #cpu, #memory, #network, #pulseaudio, #battery, #tray {
-        background: transparent;
-        color: @text;
-        padding: 0 12px;
-        margin: 0 2px;
-      }
-
-      #battery.warning { color: #ffcc66; }
-      #battery.critical { color: #ff6666; }
-    '';
-  };
-
   # Hyprpaper for wallpapers
   services.hyprpaper.enable = true;
 
@@ -292,42 +170,8 @@ in
       ];
     };
 
-  # Dunst as a managed service theme
-  services.dunst = {
-    enable = true;
-    settings = {
-      global = {
-        frame_color = "#c0c0c0";
-        separator_color = "frame";
-        corner_radius = 8;
-        padding = 8;
-        horizontal_padding = 10;
-        origin = "top-right";
-        offset = "12x12";
-        font = "Sans 10";
-        markup = true;
-        transparency = 10;
-      };
-      urgency_low = {
-        background = "#2a2c30";
-        foreground = "#e6e6e6";
-        frame_color = "#3a3d42";
-        timeout = 4;
-      };
-      urgency_normal = {
-        background = "#2a2c30";
-        foreground = "#e6e6e6";
-        frame_color = "#c0c0c0";
-        timeout = 6;
-      };
-      urgency_critical = {
-        background = "#2a2c30";
-        foreground = "#ffffff";
-        frame_color = "#ff6666";
-        timeout = 0;
-      };
-    };
-  };
+  # SwayNC notification daemon
+  services.swaync.enable = true;
 
   # XDG config conveniences
   xdg.enable = true;
