@@ -64,6 +64,7 @@ in
         follow_mouse = 1;
         touchpad = {
           natural_scroll = true;
+          scroll_factor = 0.3;
         };
         sensitivity = 0;
       };
@@ -101,7 +102,7 @@ in
         "${mod}, 2, workspace, 2"
         "${mod}, 3, workspace, 3"
         "${mod}, 4, workspace, 4"
-        "${mod}, 5, workspace, 5"
+        "${mod}, 5, workspace,On login, I'd like workspace one to contain fastfetch btop and  5"
         "${mod}, 6, workspace, 6"
         "${mod}, 7, workspace, 7"
         "${mod}, 8, workspace, 8"
