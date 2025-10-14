@@ -6,6 +6,7 @@ in
   imports = [
     ./waybar/config.nix
     ./swaync/config.nix
+    ./hyprpaper/config.nix
   ];
 
   # Enable Hyprland via Home Manager
@@ -27,24 +28,6 @@ in
         "col.inactive_border" = "rgba(3a3d42cc)"; # muted border
       };
 
-      # Decoration settings
-      decoration = {
-        rounding = 10;
-        shadow = {
-          enabled = true;
-          range = 20;
-          render_power = 3;
-          color = "0xaa000000";
-        };
-        blur = {
-          enabled = true;
-          size = 4;
-          passes = 2;
-        };
-        dim_inactive = true;
-        dim_strength = 0.05;
-      };
-
       # Makes everything use the wayland backend where possible
       env = [
         "NIXOS_OZONE_WL,1"
@@ -59,8 +42,18 @@ in
       exec-once = [
         "waybar"
         "swaync"
+
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
+
+        "[workspace 2 silent] code"
+        "[workspace 3 silent] zen"
+
+        # Conditional Teams/Discord (weekday before 17:00 = Teams, otherwise = Discord)
+        # Window rules will assign to workspace 4
+        ''sh -c 'day=$(date +%u); hour=$(date +%H); if [ "$day" -le 5 ] && [ "$hour" -lt 17 ]; then teams-for-linux; else discordptb; fi' ''
+
+        "[workspace 5 silent] thunderbird"
       ];
 
       input = {
@@ -144,34 +137,13 @@ in
         "${mod}, mouse:273, resizewindow"
       ];
 
-      # Subtle blur for Waybar
-      layerrule = [ 
-        "blur, waybar"
-        "blur, swaync-control-center"
-        "blur, swaync-notification-window"
+      # Window rules - assign apps to specific workspaces
+      windowrulev2 = [
+        "workspace 4 silent, class:(teams-for-linux)"
+        "workspace 4 silent, class:(discord)"
       ];
     };
   };
-
-  # Hyprpaper for wallpapers
-  services.hyprpaper.enable = true;
-
-  services.hyprpaper.settings =
-    let
-      wallpaperDir = "${config.home.homeDirectory}/Pictures/Wallpapers";
-    in
-    {
-      ipc = false;
-      splash = false;
-
-      preload = [
-        "${wallpaperDir}/progress.jpg"
-      ];
-
-      wallpaper = [
-        ",${wallpaperDir}/progress.jpg"
-      ];
-    };
 
   # XDG config conveniences
   xdg.enable = true;
