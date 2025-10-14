@@ -49,9 +49,9 @@ in
   security.pam.services = {
     sudo.fprintAuth = true;        # Enable fingerprint for sudo
     su.fprintAuth = true;          # Enable fingerprint for su
-    sddm.fprintAuth = true;        # Keep for SDDM
-    login.fprintAuth = true;       # Keep for login
-    hyprland.fprintAuth = true;    # Keep for Hyprland
+    sddm.fprintAuth = false;        # Keep for SDDM
+    login.fprintAuth = false;       # Keep for login
+    hyprland.fprintAuth = false;    # Keep for Hyprland
   };
 
   # Enable flakes
@@ -99,10 +99,8 @@ in
     theme = sddm-theme.pname;
     extraPackages = sddm-theme.propagatedBuildInputs;
     settings = {
-      # Required for styling the virtual keyboard
       General = {
-        GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
-        InputMethod = "qtvirtualkeyboard";
+        scale = 10;
       };
     };
   };

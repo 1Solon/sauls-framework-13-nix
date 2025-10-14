@@ -19,6 +19,7 @@
     ./programs/zsh.nix
     ./programs/starship.nix
     ./programs/alacritty.nix
+    ./programs/vscode.nix
     ./hyprland/hyprland.nix
     ./hyprland/wofi/config.nix
 
@@ -28,7 +29,7 @@
 
   home.packages = with pkgs; [
     # Editors
-    vscode
+    # vscode is now managed via programs/vscode.nix
 
     # Version control
     git
