@@ -133,6 +133,7 @@
     kitty
     waybar
     hyprpaper
+    xorg.xbacklight
   ];
 
   # Zen / 1Password stuff

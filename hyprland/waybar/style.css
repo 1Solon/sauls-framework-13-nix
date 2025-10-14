@@ -46,6 +46,7 @@ tooltip {
   padding: 0px 5px;
   transition: all 0.3s ease;
   color: @color7;
+  font-size: 16px;
 }
 #clock {
   padding: 0px 5px;

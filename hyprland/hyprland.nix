@@ -5,6 +5,7 @@ in
 {
   imports = [
     ./waybar/config.nix
+    ./swaync/config.nix
   ];
 
   # Enable Hyprland via Home Manager
@@ -57,6 +58,7 @@ in
       # Autostart
       exec-once = [
         "waybar"
+        "swaync"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
       ];
@@ -146,7 +148,11 @@ in
       ];
 
       # Subtle blur for Waybar
-      layerrule = [ "blur, waybar" ];
+      layerrule = [ 
+        "blur, waybar"
+        "blur, swaync-control-center"
+        "blur, swaync-notification-window"
+      ];
     };
   };
 
@@ -170,13 +176,8 @@ in
       ];
     };
 
-  # SwayNC notification daemon
-  services.swaync.enable = true;
-
   # XDG config conveniences
   xdg.enable = true;
-
-  # Rofi theme
   xdg.configFile."rofi/themes/silver-gray.rasi".text = ''
     * {
       bg:      #121417;

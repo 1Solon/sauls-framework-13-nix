@@ -81,7 +81,6 @@
     swaynotificationcenter
     libnotify
     rofi-wayland
-    brightnessctl
     fastfetch
     blueman
 
