@@ -134,21 +134,11 @@
           };
           modules = [
             "custom/expand"
-            "custom/colorpicker"
             "cpu"
             "memory"
             "temperature"
             "custom/endpoint"
           ];
-        };
-
-        "custom/colorpicker" = {
-          format = "{}";
-          return-type = "json";
-          interval = "once";
-          exec = "~/.config/waybar/scripts/colorpicker.sh -j";
-          on-click = "~/.config/waybar/scripts/colorpicker.sh";
-          signal = 1;
         };
 
         cpu = {
