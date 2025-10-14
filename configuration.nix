@@ -5,6 +5,11 @@
   ...
 }:
 
+let
+  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+    theme = "default";
+  };
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -39,6 +44,15 @@
 
   # Enable fingerprint reader
   services.fprintd.enable = true;
+  
+  # Configure PAM for fingerprint authentication
+  security.pam.services = {
+    sudo.fprintAuth = true;        # Enable fingerprint for sudo
+    su.fprintAuth = true;          # Enable fingerprint for su
+    sddm.fprintAuth = true;        # Keep for SDDM
+    login.fprintAuth = true;       # Keep for login
+    hyprland.fprintAuth = true;    # Keep for Hyprland
+  };
 
   # Enable flakes
   nix.settings.experimental-features = [
@@ -74,9 +88,24 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # Enable Qt for SDDM theme
+  qt.enable = true;
+
+  # Enable SDDM Display Manager with SilentSDDM theme
+  services.displayManager.sddm = {
+    package = pkgs.kdePackages.sddm; # use qt6 version of sddm
+    enable = true;
+    wayland.enable = true;
+    theme = sddm-theme.pname;
+    extraPackages = sddm-theme.propagatedBuildInputs;
+    settings = {
+      # Required for styling the virtual keyboard
+      General = {
+        GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
+        InputMethod = "qtvirtualkeyboard";
+      };
+    };
+  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -89,6 +118,11 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  # Enable Bluetooth
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+  services.blueman.enable = true;
 
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -133,6 +167,7 @@
     waybar
     hyprpaper
     xorg.xbacklight
+    sddm-theme
   ];
 
   # Zen / 1Password stuff

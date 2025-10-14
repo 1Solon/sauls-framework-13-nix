@@ -21,13 +21,6 @@ in
       # Auto-detect monitor and scale
       monitor = [ ",preferred,auto,2" ];
 
-      # Window chrome
-      general = {
-        border_size = 0; # no border
-        "col.active_border" = "rgba(c0c0c0ff)"; # silver
-        "col.inactive_border" = "rgba(3a3d42cc)"; # muted border
-      };
-
       # Makes everything use the wayland backend where possible
       env = [
         "NIXOS_OZONE_WL,1"
@@ -36,7 +29,69 @@ in
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
         "GDK_BACKEND,wayland,x11"
         "MOZ_ENABLE_WAYLAND=1"
+        "ELECTRON_OZONE_PLATFORM_HINT,wayland"
+        "EXCURSOR_THEME,Bibata-Modern-Classic"
+        "EXCURSOR_SIZE,12"
       ];
+
+      general = {
+        gaps_in = 2;
+        gaps_out = 10;
+        border_size = 0; # no border
+        "col.active_border" = "rgba(c0c0c0ff)"; # silver
+        "col.inactive_border" = "rgba(3a3d42cc)"; # muted
+        resize_on_border = true;
+        allow_tearing = false;
+        layout = "dwindle";
+      };
+
+      decoration = {
+        rounding = 10;
+        active_opacity = 0.9;
+        inactive_opacity = 0.7;
+        fullscreen_opacity = 1;
+        blur = {
+          enabled = true;
+          size = 3;
+          passes = 5;
+          new_optimizations = true;
+          ignore_opacity = true;
+          xray = false;
+          popups = true;
+        };
+        shadow = {
+          enabled = true;
+          range = 15;
+          render_power = 5;
+          color = "rgba(0,0,0,0.35)";
+        };
+      };
+
+      animations = {
+        enabled = true;
+        bezier = [
+          "fluid, 0.15, 0.85, 0.25, 1"
+          "snappy, 0.3, 1, 0.4, 1"
+        ];
+        animation = [
+          "windows, 1, 3, fluid, popin 5%"
+          "windowsOut, 1, 2.5, snappy"
+          "fade, 1, 4, snappy"
+          "workspaces, 1, 1.7, snappy, slide"
+          "specialWorkspace, 1, 4, fluid, slidefadevert -35%"
+          "layers, 1, 2, snappy, popin 70%"
+        ];
+      };
+
+      dwindle = {
+        preserve_split = true;
+      };
+
+      misc = {
+        force_default_wallpaper = -1;
+        disable_hyprland_logo = true;
+        focus_on_activate = true;
+      };
 
       # Autostart
       exec-once = [
@@ -45,38 +100,24 @@ in
 
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
-
-        "[workspace 2 silent] code"
-        "[workspace 3 silent] zen"
-
-        # Conditional Teams/Discord (weekday before 17:00 = Teams, otherwise = Discord)
-        # Window rules will assign to workspace 4
-        ''sh -c 'day=$(date +%u); hour=$(date +%H); if [ "$day" -le 5 ] && [ "$hour" -lt 17 ]; then teams-for-linux; else discordptb; fi' ''
-
-        "[workspace 5 silent] thunderbird"
       ];
 
       input = {
         kb_layout = "gb";
-        kb_variant = "";
-        kb_options = "caps:escape";
         follow_mouse = 1;
+        sensitivity = 0;
         touchpad = {
           natural_scroll = true;
           scroll_factor = 0.3;
         };
-        sensitivity = 0;
       };
 
       # Touchpad gestures
       gestures = {
         workspace_swipe = true;
-        workspace_swipe_fingers = 3;
-        workspace_swipe_distance = 500;
-        workspace_swipe_invert = true;
-        workspace_swipe_min_speed_to_force = 30;
-        workspace_swipe_cancel_ratio = 0.2;
-        workspace_swipe_create_new = true;
+        workspace_swipe_distance = 300;
+        workspace_swipe_cancel_ratio = 0.5;
+        workspace_swipe_min_speed_to_force = 0;
       };
 
       # Keybindings
@@ -143,16 +184,5 @@ in
         "workspace 4 silent, class:(discord)"
       ];
     };
-  };
-
-  # XDG config conveniences
-  xdg.enable = true;
-
-  # Cursor to match the theme (grey/silver)
-  home.pointerCursor = {
-    name = "Bibata-Modern-Classic";
-    package = pkgs.bibata-cursors;
-    size = 12;
-    gtk.enable = true;
   };
 }
