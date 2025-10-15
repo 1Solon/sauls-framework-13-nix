@@ -87,9 +87,11 @@ in
   };
 
   # Lid close settings
-  services.logind.lidSwitch = "poweroff";
-  services.logind.lidSwitchExternalPower = "lock";
-  services.logind.lidSwitchDocked = "ignore";
+  services.logind.settings.Login = {
+    HandleLidSwitch = "poweroff";
+    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitchDocked = "ignore";
+  };
 
   # Enable fingerprint reader
   services.fprintd.enable = true;

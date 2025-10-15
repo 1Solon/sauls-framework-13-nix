@@ -108,11 +108,8 @@ in
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
 
         # Startup apps
-        "[workspace 1 silent] alacritty -e tmux new-session -d \\; send-keys 'fastfetch' C-m \\; split-window -h \\; send-keys 'htop' C-m \\; attach"
-        "[workspace 2 silent] zen"
-        # Conditionally open Teams (weekdays before 17:00) or Discord (otherwise)
-        "sh -c 'DAY=$(date +%u); HOUR=$(date +%H); if [ $DAY -le 5 ] && [ $HOUR -lt 17 ]; then hyprctl dispatch exec \"[workspace 3 silent] teams-for-linux\"; else hyprctl dispatch exec \"[workspace 3 silent] discord\"; fi'"
-        "[workspace 4 silent] thunderbird"
+        "[workspace special:ferdium silent] ferdium"
+        "[workspace special:thunderbird silent] thunderbird"
       ];
 
       input = {
@@ -160,6 +157,10 @@ in
         "${mod}, 9, workspace, 9"
         "${mod}, 0, workspace, 10"
 
+        # Toggle special workspace with Ferdium
+        "ALT, X, togglespecialworkspace, ferdium"
+        "ALT, M, togglespecialworkspace, thunderbird"
+
         # Move focused window to workspace 1..10
         "${mod} SHIFT, 1, movetoworkspace, 1"
         "${mod} SHIFT, 2, movetoworkspace, 2"
@@ -190,12 +191,6 @@ in
       bindm = [
         "${mod}, mouse:272, movewindow"
         "${mod}, mouse:273, resizewindow"
-      ];
-
-      # Window rules - assign apps to specific workspaces
-      windowrulev2 = [
-        "workspace 4 silent, class:(teams-for-linux)"
-        "workspace 4 silent, class:(discord)"
       ];
     };
   };
