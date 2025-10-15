@@ -51,6 +51,7 @@
     zsh
     zsh-autocomplete
     starship
+    tmux
 
     # Languages & toolchains
     cue

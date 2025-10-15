@@ -108,10 +108,11 @@ in
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
 
         # Startup apps
+        "[workspace 1 silent] alacritty -e tmux new-session -d \\; send-keys 'fastfetch' C-m \\; split-window -h \\; send-keys 'htop' C-m \\; attach"
         "[workspace 2 silent] zen"
         # Conditionally open Teams (weekdays before 17:00) or Discord (otherwise)
-        "sh -c 'DAY=$(date +%u); HOUR=$(date +%H); if [ $DAY -le 5 ] && [ $HOUR -lt 17 ]; then hyprctl dispatch exec \"[workspace 4 silent] teams-for-linux\"; else hyprctl dispatch exec \"[workspace 2 silent] discord\"; fi'"
-        "[workspace 5 silent] thunderbird"
+        "sh -c 'DAY=$(date +%u); HOUR=$(date +%H); if [ $DAY -le 5 ] && [ $HOUR -lt 17 ]; then hyprctl dispatch exec \"[workspace 3 silent] teams-for-linux\"; else hyprctl dispatch exec \"[workspace 3 silent] discord\"; fi'"
+        "[workspace 4 silent] thunderbird"
       ];
 
       input = {
