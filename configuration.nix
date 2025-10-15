@@ -88,8 +88,8 @@ in
 
   # Lid close settings
   services.logind.settings.Login = {
-    HandleLidSwitch = "poweroff";
-    HandleLidSwitchExternalPower = "lock";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
 
