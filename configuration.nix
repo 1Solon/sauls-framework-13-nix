@@ -171,16 +171,33 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+  # See: https://community.frame.work/t/microphone-not-working-after-nixos-update/74915
+  services.pipewire.wireplumber.extraConfig.no-ucm = {
+    "monitor.alsa.properties" = {
+      "alsa.use-ucm" = false;
+    };
+  };
 
   # Enable audio enhancement for Framework Laptop 13
   hardware.framework.laptop13.audioEnhancement.rawDeviceName =
     lib.mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Enable XDG Desktop Portal for screen/audio sharing in browsers (Wayland/Hyprland)
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+    config.common.default = "*";
+  };
+
+  # Define a user account. Don't forget to set a password with 'passwd'.
   users.users.saul = {
     isNormalUser = true;
     description = "Saul Burgess";
     extraGroups = [
+      "audio"
       "networkmanager"
       "wheel"
     ];

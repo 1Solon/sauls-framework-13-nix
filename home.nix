@@ -69,6 +69,10 @@
     logiops
     btop
     htop
+    gcr
+
+    # Tools
+    ferdium
 
     # Communication
     discord
@@ -90,6 +94,9 @@
     hyprcursor
 
   ];
+
+  # Enable gnome keyring for managing secrets
+  services.gnome-keyring.enable = true;
 
   # Enable dark theme for GTK applications
   gtk = {
