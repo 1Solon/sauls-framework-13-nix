@@ -80,6 +80,12 @@ in
     };
   };
 
+  # Enable graphics
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
+
   # Lid close settings
   services.logind.lidSwitch = "poweroff";
   services.logind.lidSwitchExternalPower = "lock";

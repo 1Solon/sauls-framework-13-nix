@@ -30,8 +30,8 @@ in
         "GDK_BACKEND,wayland,x11"
         "MOZ_ENABLE_WAYLAND=1"
         "ELECTRON_OZONE_PLATFORM_HINT,wayland"
-        "EXCURSOR_THEME,Bibata-Modern-Classic"
-        "EXCURSOR_SIZE,12"
+        "HYPRCURSOR_THEME,Bibata-Modern-Classic"
+        "HYPRCURSOR_SIZE,20"
       ];
 
       general = {
@@ -93,10 +93,16 @@ in
         focus_on_activate = true;
       };
 
+      cursor = {
+        no_hardware_cursors = false;
+        enable_hyprcursor = true;
+      };
+
       # Autostart
       exec-once = [
         "waybar"
         "swaync"
+        "hyprctl setcursor Bibata-Modern-Classic 24"
 
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"

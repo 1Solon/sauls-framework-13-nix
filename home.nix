@@ -86,6 +86,7 @@
     wofi
     fastfetch
     blueman
+    hyprcursor
 
   ];
 
@@ -100,6 +101,15 @@
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
     };
+  };
+
+  # Configure cursor theme for Wayland/Hyprland
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
   };
 
   # Set dark theme preference for GNOME applications
