@@ -56,6 +56,11 @@ in
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
+  # Enable AMD CPU scaling (amd-pstate driver for better energy efficiency)
+  # https://www.kernel.org/doc/html/latest/admin-guide/pm/amd-pstate.html
+  # Since we use linuxPackages_latest (currently 6.17+), we always use active mode
+  boot.kernelParams = [ "amd_pstate=active" ];
+
   # Enable BIOS updates
   services.fwupd.enable = true;
 
