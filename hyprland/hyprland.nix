@@ -90,7 +90,7 @@ in
       misc = {
         force_default_wallpaper = -1;
         disable_hyprland_logo = true;
-        focus_on_activate = true;
+        focus_on_activate = false;
       };
 
       cursor = {
@@ -106,6 +106,12 @@ in
 
         "sh -c 'mkdir -p \"$HOME\"/Pictures/screenshots'"
         "sh -c 'mkdir -p \"$HOME\"/Pictures/Wallpapers'"
+
+        # Startup apps
+        "[workspace 2 silent] zen"
+        # Conditionally open Teams (weekdays before 17:00) or Discord (otherwise)
+        "sh -c 'DAY=$(date +%u); HOUR=$(date +%H); if [ $DAY -le 5 ] && [ $HOUR -lt 17 ]; then hyprctl dispatch exec \"[workspace 4 silent] teams-for-linux\"; else hyprctl dispatch exec \"[workspace 2 silent] discord\"; fi'"
+        "[workspace 5 silent] thunderbird"
       ];
 
       input = {
