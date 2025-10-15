@@ -126,12 +126,13 @@ in
       };
 
       # Touchpad gestures
-      gestures = {
-        workspace_swipe = true;
-        workspace_swipe_distance = 300;
-        workspace_swipe_cancel_ratio = 0.5;
-        workspace_swipe_min_speed_to_force = 0;
-      };
+      gesture = [
+        # 3-finger horizontal swipe to switch workspaces
+        "3, horizontal, workspace"
+        
+        # 3-finger swipe up to toggle fullscreen
+        "3, up, fullscreen"
+      ];
 
       # Keybindings
       bind = [

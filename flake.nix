@@ -2,10 +2,10 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
@@ -16,7 +16,10 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    hyprshell = {
+      url = "github:H3rmt/hyprswitch?ref=hyprshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -26,6 +29,7 @@
       zen-browser,
       nixos-hardware,
       silentSDDM,
+      hyprshell,
       ...
     }:
     {
@@ -37,6 +41,11 @@
 
             # Hardware specific configuration for Framework 13
             nixos-hardware.nixosModules.framework-amd-ai-300-series
+
+            # hyprshell
+            {
+              environment.systemPackages = [ hyprshell.packages.x86_64-linux.hyprshell ];
+            }
 
             # Home Manager module
             home-manager.nixosModules.home-manager
