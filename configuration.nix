@@ -2,39 +2,40 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 
 let
+  # Sddm theme configuration
   sddm-theme = pkgs.where-is-my-sddm-theme.override {
     themeConfig.General = {
-      # Custom wallpaper
       background = "${./static/wallpaper.jpg}";
       backgroundFillMode = "aspect";
-      
-      basicTextColor = "#d3d3d3"; 
-      passwordTextColor = "#f5f5f5";  
-      passwordCursorColor = "#c0c0c0";  
-      passwordInputBackground = "#2a2a2a";  
+
+      basicTextColor = "#d3d3d3";
+      passwordTextColor = "#f5f5f5";
+      passwordCursorColor = "#c0c0c0";
+      passwordInputBackground = "#2a2a2a";
 
       passwordInputWidth = "0.35";
-      passwordInputRadius = "10"; 
+      passwordInputRadius = "10";
       passwordMask = true;
       passwordCharacter = "*";
-      passwordFontSize = 72; 
+      passwordFontSize = 72;
       passwordInputCursorVisible = true;
-      
-      hideCursor = true; 
+
+      hideCursor = true;
       cursorBlinkAnimation = true;
       showSessionsByDefault = false;
       showUsersByDefault = false;
-      
-      font = "Monaspace Neon";  # Match your terminal font
+
+      font = "Monaspace Neon"; # Match your terminal font
       helpFont = "Monaspace Neon";
       sessionsFontSize = 20;
       usersFontSize = 40;
       helpFontSize = 16;
-      
+
       blurRadius = 15;
     };
   };
@@ -48,6 +49,9 @@ in
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Enable Amd microcode updates
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -71,16 +75,21 @@ in
     };
   };
 
+  # Lid close settings
+  services.logind.lidSwitch = "poweroff";
+  services.logind.lidSwitchExternalPower = "lock";
+  services.logind.lidSwitchDocked = "ignore";
+
   # Enable fingerprint reader
   services.fprintd.enable = true;
-  
+
   # Configure PAM for fingerprint authentication
   security.pam.services = {
-    sudo.fprintAuth = true;        # Enable fingerprint for sudo
-    su.fprintAuth = true;          # Enable fingerprint for su
-    sddm.fprintAuth = false;        # Keep for SDDM
-    login.fprintAuth = false;       # Keep for login
-    hyprland.fprintAuth = false;    # Keep for Hyprland
+    sudo.fprintAuth = true; # Enable fingerprint for sudo
+    su.fprintAuth = true; # Enable fingerprint for su
+    sddm.fprintAuth = false; # Keep for SDDM
+    login.fprintAuth = false; # Keep for login
+    hyprland.fprintAuth = false; # Keep for Hyprland
   };
 
   # Enable flakes
@@ -96,7 +105,7 @@ in
     "192.168.1.111" = [ "TrueNAS" ];
   };
 
-  # Set your time zone.
+  # Set time zone.
   time.timeZone = "Europe/Dublin";
 
   # Select internationalisation properties.
@@ -114,9 +123,6 @@ in
     LC_TIME = "en_IE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Enable Qt for SDDM theme
   qt.enable = true;
 
@@ -132,12 +138,6 @@ in
         scale = 10;
       };
     };
-  };
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "gb";
-    variant = "";
   };
 
   # Configure console keymap
@@ -160,6 +160,10 @@ in
     alsa.support32Bit = true;
     pulse.enable = true;
   };
+
+  # Enable audio enhancement for Framework Laptop 13
+  hardware.framework.laptop13.audioEnhancement.rawDeviceName =
+    lib.mkDefault "alsa_output.pci-0000_c1_00.6.analog-stereo";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.saul = {
