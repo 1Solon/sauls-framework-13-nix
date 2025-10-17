@@ -7,8 +7,8 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "rebaseWhen": "conflicted",
   "schedule": [
-    "after 10pm every weekday",
-    "before 5am every weekday",
+    "after 5pm every weekday",
+    "before 9am every weekday",
     "every weekend"
   ],
   "timezone": "Europe/Dublin",
@@ -17,7 +17,11 @@
   "reviewers": ["1Solon"],
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["before 5am on monday"]
+    "schedule": [
+      "after 5pm every weekday",
+      "before 9am every weekday",
+      "every weekend"
+    ]
   },
   "packageRules": [
     {
