@@ -1,0 +1,73 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "description": "Renovate configuration for NixOS flake repository",
+  "platformAutomerge": false,
+  "dependencyDashboard": true,
+  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
+  "rebaseWhen": "conflicted",
+  "schedule": [
+    "after 10pm every weekday",
+    "before 5am every weekday",
+    "every weekend"
+  ],
+  "timezone": "Europe/Dublin",
+  "labels": ["dependencies"],
+  "assignees": ["1Solon"],
+  "reviewers": ["1Solon"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on monday"]
+  },
+  "packageRules": [
+    {
+      "description": "Nix flake inputs",
+      "matchManagers": ["nix"],
+      "automerge": false,
+      "minimumReleaseAge": "3 days",
+      "prPriority": 10,
+      "groupName": "nix flake inputs",
+      "separateMinorPatch": false
+    },
+    {
+      "description": "Group nixpkgs updates",
+      "matchManagers": ["nix"],
+      "matchPackageNames": ["nixpkgs"],
+      "groupName": "nixpkgs",
+      "automerge": false,
+      "schedule": ["every weekend"]
+    },
+    {
+      "description": "Group home-manager updates",
+      "matchManagers": ["nix"],
+      "matchPackageNames": ["home-manager"],
+      "groupName": "home-manager",
+      "automerge": false
+    },
+    {
+      "description": "Group nixos-hardware updates",
+      "matchManagers": ["nix"],
+      "matchPackageNames": ["nixos-hardware"],
+      "groupName": "nixos-hardware",
+      "automerge": false
+    },
+    {
+      "description": "Custom flake inputs (zen-browser, silentSDDM, hyprshell)",
+      "matchManagers": ["nix"],
+      "matchPackageNames": ["zen-browser", "silentSDDM", "hyprshell"],
+      "groupName": "custom flake inputs",
+      "automerge": false,
+      "minimumReleaseAge": "7 days"
+    }
+  ],
+  "nix": {
+    "enabled": true
+  },
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 2,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "automerge": false
+  }
+}
