@@ -110,6 +110,9 @@ in
         # Startup apps
         "[workspace special:ferdium silent] ferdium"
         "[workspace special:thunderbird silent] thunderbird"
+
+        # Tray apps
+        "trayscale"
       ];
 
       input = {

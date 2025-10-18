@@ -118,6 +118,9 @@ in
     "192.168.1.111" = [ "TrueNAS" ];
   };
 
+  # Enable Tailscale VPN
+  services.tailscale.enable = true;
+
   # Set time zone.
   time.timeZone = "Europe/Dublin";
 
@@ -222,6 +225,8 @@ in
   environment.systemPackages = with pkgs; [
     git
     nfs-utils
+    tailscale
+    trayscale
     vscode
     wget
     foot
